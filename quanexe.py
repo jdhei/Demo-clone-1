@@ -10,15 +10,12 @@ import time
 
 os.system('cls' if os.name == 'nt' else 'clear')
 
-# Hiển thị menu
+# Executor
 print("Auto setup ug")
 print("""
-Thanks for ticket rep support form ngquocthanh
-and W-azure
 [1]:Delta
 [2]:Fluxus
 """)
-
 while True:
     try:
         mode = int(input("Mode: "))
@@ -30,19 +27,18 @@ while True:
         print("Value not set")
 
 # Tab UI
-print("""--------------------
-How many tab: """)
+print("--------------------\nHow many tab: ")
 while True:
     try:
         tab = int(input("> "))
         if 1 <= tab <= 10:
             break
         else:
-            print("Choose 1-10")
+            print("Chose 1-10")
     except:
         print("Wrong value")
 
-# Root check
+# Rootcheck
 def root():
     try:
         result = os.system('su -c "echo"')
@@ -51,7 +47,7 @@ def root():
         print(f"Error checking root status: {e}")
         return False
 
-# Mediafire Download 
+# Mediafire Download
 internal_urls = set()
 external_urls = set()
 
@@ -69,7 +65,7 @@ def gawl(url):
             if domain_name in href:
                 internal_urls.add(href)
             else:
-                external_urls.add(href)      
+                external_urls.add(href)
     for i in external_urls:
         if i[0:16] == "https://download":
             return i
@@ -97,52 +93,52 @@ def testzip(file):
     except Exception as ex:
         return False
 
-# Func
+# Function
 print("Delete Google Play")
 os.system('su -c "pm uninstall -k --user 0 com.android.vending"')
-
 print("Ready to check file")
-link = "https://github.com/MinhMeow123/Autosetup/releases/download/database/App.zip"
-
+link = gawl("https://www.mediafire.com/file/88smx13m9ot4nts/App.zip/file")
 if not cfe("/sdcard/Download/App.zip"):
-    print("Downloading material...")
-    wget.download(link, out="/sdcard/Download/App.zip")  
+    print("Download material...")
+    wget.download(link, out="/sdcard/Download/App.zip")
 else:
     print("Found App.zip file, ready to unzip...")
-
-print("Unzip File...")
+print("Unzip File....")
 unzipall("/sdcard/Download/App.zip", "/sdcard/Download/")
 print("Unzip App.zip done")
+print("Wait 5s cooldown")
+time.sleep(5)
+print("Done")
 
-if mode == 1:    
-    # ---- Roblox Delta
+if mode == 1:
+    #----Roblox Delta
     if tab <= 5 and not cfe("/sdcard/Download/delta.zip"):
-        print("Downloading delta.zip")
-        wget.download("https://download1979.mediafire.com/n0s1zj6szuqgblrlCVEzJPp1riJPFhlZu6b8N9t1UhMFmw4OmAVOzxfoLfsh3LbBQewHV3JCbVH_v8W-DduF2rDNTQwVNnKxhZH2SDjsV3rgHggTKFf2r_gGh1XFI5c1g8tBVDrIKZ1y1PdgDkpKZSq4SsTJy-F-z2rk2_6llQ/f1imajpk7ghj3gi/delta.zip", out="/sdcard/Download/delta.zip")
+        print("Download delta.zip")
+        delta = gawl("https://www.mediafire.com/file/f1imajpk7ghj3gi/delta.zip/file")
+        wget.download(delta, out="/sdcard/Download/delta.zip")
     elif tab > 5 and not cfe("/sdcard/Download/deltasvip.zip"):
-        print("Downloading delta(large).zip")
-        wget.download("https://github.com/MinhMeow123/Autosetup/releases/download/database/delta2.zip", out="/sdcard/Download/deltasvip.zip")
-
+        print("Download delta(large).zip")
+        delta2 = gawl("https://www.mediafire.com/file/lfxn5c2i8bupfnh/deltasvip.zip/file")
+        wget.download(delta2, out="/sdcard/Download/deltasvip.zip")
     print("Unzip Delta file...")
-    time.sleep(1)
-
+    #----Unzip
     if cfe("/sdcard/Download/deltasvip.zip"):
         for i in range(1, tab + 1):
             unzip("/sdcard/Download/deltasvip.zip", f"delta{i}.apk", "/sdcard/Download/")
     elif cfe("/sdcard/Download/delta.zip"):
         for i in range(1, tab + 1):
             unzip("/sdcard/Download/delta.zip", f"delta{i}.apk", "/sdcard/Download/")
-
-# Roblox Fluxus
 else:
     if tab <= 5 and not cfe("/sdcard/Download/fluxus.zip"):
-        print("Downloading fluxus.zip")
-        wget.download("https://github.com/MinhMeow123/Autosetup/releases/download/database/fluxus.zip", out="/sdcard/Download/fluxus.zip")
+        print("Download fluxus.zip")
+        fluxus = gawl("https://www.mediafire.com/file/ftijj6omvmcaztn/fluxus.zip/file")
+        wget.download(fluxus, out="/sdcard/Download/fluxus.zip")
     elif tab > 5 and not cfe("/sdcard/Download/fluxus2.zip"):
-        print("Downloading fluxus2.zip")
-        wget.download("https://github.com/MinhMeow123/Autosetup/releases/download/database/fluxus2.zip", out="/sdcard/Download/fluxus2.zip")
-
+        print("Download fluxus2.zip")
+        fluxus2 = gawl("https://www.mediafire.com/file/fpv1r4hv7b3a548/fluxus2.zip/file")
+        wget.download(fluxus2, out="/sdcard/Download/fluxus2.zip")
     print("Unzip Roblox file...")
+    #----Unzip
     if cfe("/sdcard/Download/fluxus2.zip"):
         for i in range(1, tab + 1):
             unzip("/sdcard/Download/fluxus2.zip", f"fluxus{i}.apk", "/sdcard/Download/")
@@ -156,26 +152,23 @@ if not root():
     print("Enable Root pls")
     exit()
 
-# APK install
-print("Installing APKs...")
+# APK Install
 if mode == 1:
+    print("Install apk....")
     for i in range(1, 7):
         print(f"Install {i}.apk")
-        os.system(f'su -c "pm install /sdcard/Download/{i}.apk"')
-
-    os.system('su -c "pm uninstall -k --user 0 com.android.vending"')
-
+        os.system(f'su -c "pm install /sdcard/Download/{i}.apk"')     
+    os.system('su -c "pm uninstall -k --user 0 com.android.vending"')  
     for i in range(1, tab + 1):
         print(f"Install delta{i}.apk")
         os.system(f'su -c "pm install /sdcard/Download/delta{i}.apk"')
     os.system('su -c "pm install /sdcard/Download/2.apk"')
 else:
+    print("Install apk....")
     for i in range(1, 7):
         print(f"Install {i}.apk")
-        os.system(f'su -c "pm install /sdcard/Download/{i}.apk"')
-
-    os.system('su -c "pm uninstall -k --user 0 com.android.vending"')
-
+        os.system(f'su -c "pm install /sdcard/Download/{i}.apk"')     
+    os.system('su -c "pm uninstall -k --user 0 com.android.vending"')  
     for i in range(1, tab + 1):
         print(f"Install fluxus{i}.apk")
         os.system(f'su -c "pm install /sdcard/Download/fluxus{i}.apk"')
