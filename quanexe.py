@@ -10,6 +10,15 @@ import time
 
 os.system('cls' if os.name == 'nt' else 'clear')
 
+# Key check
+def check_key():
+    key = input("Please enter the key to continue: ")
+    return key == 'quanexe'
+
+if not check_key():
+    print("Invalid key. Exiting...")
+    exit()
+
 # Executor
 print("Auto setup ug")
 print("""
